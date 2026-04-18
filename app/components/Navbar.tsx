@@ -40,6 +40,191 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
 
   return (
     <>
+      <style dangerouslySetInnerHTML={{ __html: `
+        /* Clean Jellybelly Buttons – EXACT FROM SOURCE */
+        .button-default {
+          --bounce-ease: cubic-bezier(0.34, 2.27, 0.64, 1);
+          --border-radius-ease: cubic-bezier(0.34, 1.37, 0.64, 1);
+          --speed: 0.45s;
+          --speed-fast: 0.3s;
+          --speed-faster: 0.15s;
+          position: relative;
+          display: inline-block;
+          cursor: pointer;
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        .button-default__inner {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          transition: transform var(--speed) var(--bounce-ease);
+          will-change: transform;
+          padding: 0.5rem 1.25rem 0.5rem;
+          z-index: 10;
+        }
+        
+        @media (min-width: 768px) {
+          .button-default__inner {
+             gap: 0.75rem;
+             padding: 0.5rem 1.5rem 0.5rem;
+          }
+        }
+
+        .button-default__background {
+          border-radius: 9999px;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 100%;
+          z-index: -1;
+          background-color: #FFA6FF;
+          box-shadow: 0 4px 20px rgba(255,166,255,0.3);
+          transition: border-radius var(--speed) var(--border-radius-ease), width var(--speed) var(--bounce-ease);
+        }
+
+        .button-default__icon {
+          transition: transform var(--speed-faster) ease-out;
+          will-change: transform;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2rem;
+          height: 2rem;
+          background: white;
+          border-radius: 50%;
+          box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+          font-size: 1rem;
+        }
+
+        .button-default__text {
+          font-weight: 600;
+          color: #111;
+          font-size: 0.95rem;
+          white-space: nowrap;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+          .button-default:hover .button-default__background,
+          .button-default:focus-visible .button-default__background {
+            border-radius: 12px;
+            width: calc(100% - 0.5em);
+          }
+          
+          .button-default:hover .button-default__inner,
+          .button-default:focus-visible .button-default__inner {
+            transform: skewY(-4deg) rotate(-1deg) scale(1.02);
+          }
+
+          .button-default:active .button-default__inner {
+            transform: scale(0.95);
+          }
+
+          .button-default:hover .button-default__icon,
+          .button-default:focus-visible .button-default__icon {
+            transform: scale(0.92);
+          }
+        }
+
+        /* Color Swoosh – EXACT FROM SOURCE */
+        .button-color-swoosh {
+          --elastic-ease-out: linear(
+            0, 0.5737 7.6%, 0.8382 11.87%, 0.9463 14.19%, 1.0292 16.54%,
+            1.0886 18.97%, 1.1258 21.53%, 1.137 22.97%, 1.1424 24.48%,
+            1.1423 26.1%, 1.1366 27.86%, 1.1165 31.01%, 1.0507 38.62%,
+            1.0219 42.57%, 0.9995 46.99%, 0.9872 51.63%, 0.9842 58.77%,
+            1.0011 81.26%, 1
+          );
+          --smooth-ease: cubic-bezier(.32, .72, 0, 1);
+          --color-ease: cubic-bezier(.215, .61, .355, 1);
+
+          transition: transform .45s var(--elastic-ease-out);
+          -webkit-tap-highlight-color: transparent;
+          position: relative;
+          padding: 0.5rem 1.25rem;
+          display: inline-block;
+          font-size: 0.95rem;
+          font-weight: 600;
+          cursor: pointer;
+        }
+
+        .button-color-swoosh:active {
+          transform: scaleX(0.955) scaleY(0.954);
+        }
+
+        .button-color-swoosh_bg {
+          transition: scale .45s var(--smooth-ease), background-color .2s var(--color-ease);
+          position: absolute;
+          inset: 0;
+          border-radius: 9999px;
+          overflow: hidden;
+        }
+
+        .button-color-swoosh_bg-inner {
+          position: absolute;
+          inset: -30%;
+          background-color: black;
+          translate: -10% 100% 0;
+          rotate: 0 0 1 -12deg;
+          transition: translate .6s var(--smooth-ease), rotate .5s var(--smooth-ease);
+          transition-delay: calc((var(--index) * -1) * .042s);
+        }
+
+        .button-color-swoosh_inner {
+          position: relative;
+          z-index: 10;
+          display: grid;
+          place-items: center;
+        }
+
+        .button-color-swoosh_inner::after {
+          content: attr(data-text);
+          color: #FAF4EC;
+          display: block;
+          grid-area: 1 / 1;
+          translate: 0 1.5em 0;
+          rotate: 1 1 .5 -30deg;
+          transform-origin: top right;
+          transition: translate .75s var(--elastic-ease-out), rotate .5s var(--smooth-ease), opacity .2s ease-out;
+          opacity: 0;
+        }
+
+        .button-color-swoosh_text {
+          grid-area: 1 / 1;
+          transition: translate .75s var(--elastic-ease-out), rotate .5s var(--smooth-ease), opacity .2s ease-out, color .2s var(--color-ease);
+          color: #111;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+          .button-color-swoosh:is(:hover, :focus-visible) .button-color-swoosh_bg {
+            scale: 1.02 1.02;
+          }
+
+          .button-color-swoosh:is(:hover, :focus-visible) .button-color-swoosh_bg-inner {
+            translate: -10% 0 0;
+            rotate: 0 0 1 0deg;
+            /* Using inline var(--index) */
+          }
+
+          .button-color-swoosh:is(:hover, :focus-visible) .button-color-swoosh_text {
+            rotate: 1 1 0.45 -60deg;
+            translate: 0 -1.5em 0;
+            opacity: 0;
+          }
+
+          .button-color-swoosh:is(:hover, :focus-visible) .button-color-swoosh_inner::after {
+            rotate: 1 1 .45 0deg;
+            translate: 0 0 0;
+            opacity: 1;
+            transition-delay: .05s;
+          }
+        }
+      `}} />
+
       <motion.nav
         variants={{
           visible: { y: 0 },
@@ -50,7 +235,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
         // Keep the container transparent & pointer-events-none so we can click beneath it
         className="fixed top-4 md:top-6 left-0 right-0 z-[900] px-4 md:px-8 flex items-center justify-between pointer-events-none"
       >
-        {/* Left: Logo (Exact GetHyped SVG Logo) */}
+        {/* Left: Exact Original Source Logo structure */}
         <button
           onClick={() => scrollTo('hero')}
           className="pointer-events-auto flex items-center active:scale-95 transition-transform"
@@ -69,68 +254,37 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
           </svg>
         </button>
 
-        {/* Center: Desktop Nav Pill with EXACT Live Swoosh Animation */}
-        <div className="pointer-events-auto hidden md:flex items-center gap-1 bg-white p-1.5 rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-black/5">
+        {/* Center: Nav links exactly identically from source (Color Swoosh) */}
+        <div className="pointer-events-auto hidden md:flex items-center gap-0.5 bg-white p-1.5 rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-black/5">
           {navLinks.map((link) => (
-            <motion.button
+            <button
               key={link.id}
               onClick={() => scrollTo(link.id)}
-              className="relative overflow-hidden px-5 py-2.5 rounded-full font-semibold text-[0.95rem] text-[#111]"
-              initial="rest"
-              whileHover="hover"
-              animate="rest"
+              className="button-color-swoosh"
             >
-              {/* Swoosh Background fill coming from bottom left */}
-              <motion.div
-                variants={{
-                  rest: { y: "100%", rotate: 10 },
-                  hover: { y: "0%", rotate: 0 }
-                }}
-                transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
-                className="absolute inset-0 bg-black rounded-full z-0 origin-bottom-left"
-              />
-              
-              <div className="relative z-10 flex flex-col items-center justify-center">
-                {/* Outgoing Text */}
-                <motion.span
-                  variants={{
-                    rest: { y: 0, opacity: 1, rotate: 0 },
-                    hover: { y: "-120%", opacity: 0, rotate: -10 }
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className="block whitespace-nowrap"
-                >
-                  {link.label}
-                </motion.span>
-                {/* Incoming Text (turns white) */}
-                <motion.span
-                  variants={{
-                    rest: { y: "150%", opacity: 0, rotate: 10 },
-                    hover: { y: 0, opacity: 1, rotate: 0 }
-                  }}
-                  transition={{ duration: 0.35, delay: 0.03, ease: [0.32, 0.72, 0, 1] }}
-                  className="absolute whitespace-nowrap text-[#FAF4EC]"
-                >
-                  {link.label}
-                </motion.span>
-              </div>
-            </motion.button>
+              <span className="button-color-swoosh_bg">
+                {/* We use React inline style to inject the custom css variable index for staggered effect, similar to original HTML */}
+                <span style={{ '--index': 0 } as any} className="button-color-swoosh_bg-inner"></span>
+              </span>
+              <span data-text={link.label} className="button-color-swoosh_inner">
+                <span className="button-color-swoosh_text">{link.label}</span>
+              </span>
+            </button>
           ))}
         </div>
 
-        {/* Right: CTA Button & Mobile Menu Hamburger */}
+        {/* Right: Get Results Jellybelly & Menu Button */}
         <div className="pointer-events-auto flex items-center gap-3">
-          <motion.button
-            onClick={onOpenModal}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 md:gap-3 bg-[#FFA6FF] text-black font-semibold text-[0.95rem] pl-5 pr-2 md:pl-6 md:pr-2.5 py-2 rounded-full shadow-[0_4px_20px_rgba(255,166,255,0.3)] transition-colors hover:bg-[#ff9cff]"
-          >
-            <span>Get Results</span>
-            <span className="w-8 h-8 flex items-center justify-center rounded-full bg-white text-base shadow-sm">
-              🔥
-            </span>
-          </motion.button>
+          {/* Jellybelly Button exactly identically from source */}
+          <button onClick={onOpenModal} className="button-default">
+            <div className="button-default__inner">
+              <span className="button-default__background"></span>
+              <span className="button-default__text">Get Results</span>
+              <div className="button-default__icon">
+                🔥
+              </div>
+            </div>
+          </button>
 
           {/* Animated Hamburger Icon (Mobile) */}
           <button
@@ -164,14 +318,17 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
               </button>
             ))}
             <div className="pt-2 pb-1 border-t border-black/5 mt-2">
+              {/* Also use jellybelly here for mobile if desired, or keep standard */}
               <button
                 onClick={() => { setMenuOpen(false); onOpenModal?.(); }}
-                className="w-full flex items-center justify-center gap-3 bg-[#FFA6FF] text-black font-bold text-lg px-6 py-4 rounded-full mt-2"
+                className="button-default w-full"
+                style={{ display: 'flex' }}
               >
-                Get Results
-                <span className="w-8 h-8 flex items-center justify-center rounded-full bg-white text-base">
-                  🔥
-                </span>
+                <div className="button-default__inner" style={{ width: '100%' }}>
+                  <span className="button-default__background"></span>
+                  <span className="button-default__text text-lg">Get Results</span>
+                  <div className="button-default__icon">🔥</div>
+                </div>
               </button>
             </div>
           </motion.div>
