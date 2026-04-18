@@ -86,9 +86,10 @@ export default function HeroSection() {
              transition={{ type: "spring", stiffness: 100, damping: 14 }}
              className="relative bg-[#0D8DFF] rounded-[2.5em] p-[1.8em] shadow-2xl flex flex-col justify-between origin-bottom overflow-hidden"
              style={{ width: CARD_WIDTH, aspectRatio: CARD_ASPECT }}
+             suppressHydrationWarning
            >
-              <div className="text-[#101010] text-[4em] font-bold leading-none tracking-[-0.05em]">10M+</div>
-              <div className="flex flex-col gap-[0.4em] w-full text-left">
+              <div className="text-[#101010] text-[4em] font-bold leading-none tracking-[-0.05em]" suppressHydrationWarning>10M+</div>
+              <div className="flex flex-col gap-[0.4em] w-full text-left" suppressHydrationWarning>
                 <h2 className="font-bold text-[1.5em] text-[#101010] tracking-[-0.02em] leading-tight">Organische views</h2>
                 <div className="w-full h-[1px] bg-[#101010]/20 my-[0.4em]"></div>
                 <p className="text-[0.95em] font-medium text-[#101010]/80">Groei door slimme content</p>
@@ -111,9 +112,10 @@ export default function HeroSection() {
              transition={{ type: "spring", stiffness: 100, damping: 14 }}
              className="relative ml-[-6vw] bg-[#33C791] rounded-[2.5em] p-[1.8em] shadow-2xl flex flex-col justify-between origin-bottom overflow-hidden"
              style={{ width: CARD_WIDTH, aspectRatio: CARD_ASPECT }}
+             suppressHydrationWarning
            >
-              <div className="text-[#101010] text-[4em] font-bold leading-none tracking-[-0.05em]">30+</div>
-              <div className="flex flex-col gap-[0.4em] w-full text-left">
+              <div className="text-[#101010] text-[4em] font-bold leading-none tracking-[-0.05em]" suppressHydrationWarning>30+</div>
+              <div className="flex flex-col gap-[0.4em] w-full text-left" suppressHydrationWarning>
                 <h2 className="font-bold text-[1.5em] text-[#101010] tracking-[-0.02em] leading-tight">Merken geholpen</h2>
                 <div className="w-full h-[1px] bg-[#101010]/20 my-[0.4em]"></div>
                 <p className="text-[0.95em] font-medium text-[#101010]/80">Van start-up tot multinational</p>

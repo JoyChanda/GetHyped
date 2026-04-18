@@ -61,6 +61,7 @@ export default function IntroSection() {
         whileInView="visible"
         viewport={{ once: true, margin: '-10% 0px' }}
         className="grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-8 items-end"
+        suppressHydrationWarning
       >
         {/* Top Text */}
         <motion.div variants={itemVariants} className="md:col-span-12 mb-8 md:mb-16">
