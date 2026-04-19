@@ -23,3 +23,243 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+/* ========== Jellybelly Buttons (Global) ========== */
+.button-default {
+  --bounce-ease: cubic-bezier(0.34, 2.27, 0.64, 1);
+  --border-radius-ease: cubic-bezier(0.34, 1.37, 0.64, 1);
+  --speed: 0.45s;
+  --speed-fast: 0.3s;
+  --speed-faster: 0.15s;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button-default__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: transform var(--speed) var(--bounce-ease);
+  will-change: transform;
+  padding: 0.5rem 1.25rem 0.5rem;
+  z-index: 10;
+}
+
+@media (min-width: 768px) {
+  .button-default__inner {
+    gap: 0.75rem;
+    padding: 0.5rem 1.5rem 0.5rem;
+  }
+}
+
+.button-default__background {
+  border-radius: 9999px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: -1;
+  background-color: #FFA6FF;
+  box-shadow: 0 4px 20px rgba(255,166,255,0.3);
+  transition: border-radius var(--speed) var(--border-radius-ease), width var(--speed) var(--bounce-ease);
+}
+
+.button-default__background.is-outline {
+  border: 1px solid #111;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.button-default__icon {
+  transition: transform var(--speed-faster) ease-out;
+  will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 1.8rem;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  font-size: 1rem;
+}
+
+.button-default__icon.is-black {
+  background-color: #111;
+  color: #FAF4EC;
+}
+
+.button-default__text {
+  font-weight: 600;
+  color: #111;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-default:hover .button-default__background,
+  .button-default:focus-visible .button-default__background {
+    border-radius: 12px;
+    width: calc(100% - 0.5em);
+  }
+
+  .button-default:hover .button-default__inner,
+  .button-default:focus-visible .button-default__inner {
+    transform: skewY(-4deg) rotate(-1deg) scale(1.05);
+  }
+
+  .button-default:active .button-default__inner {
+    transform: scale(0.95);
+  }
+
+  .button-default:hover .button-default__icon,
+  .button-default:focus-visible .button-default__icon {
+    transform: scale(0.92);
+  }
+}
+
+/* ========== Color Swoosh Buttons (Global) ========== */
+.button-color-swoosh {
+  --elastic-ease-out: linear(
+    0, 0.5737 7.6%, 0.8382 11.87%, 0.9463 14.19%, 1.0292 16.54%,
+    1.0886 18.97%, 1.1258 21.53%, 1.137 22.97%, 1.1424 24.48%,
+    1.1423 26.1%, 1.1366 27.86%, 1.1165 31.01%, 1.0507 38.62%,
+    1.0219 42.57%, 0.9995 46.99%, 0.9872 51.63%, 0.9842 58.77%,
+    1.0011 81.26%, 1
+  );
+  --smooth-ease: cubic-bezier(.32, .72, 0, 1);
+  --color-ease: cubic-bezier(.215, .61, .355, 1);
+
+  transition: transform .45s var(--elastic-ease-out);
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  padding: 0.5rem 1.25rem;
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button-color-swoosh:active {
+  transform: scaleX(0.955) scaleY(0.954);
+}
+
+.button-color-swoosh_bg {
+  transition: scale .45s var(--smooth-ease), background-color .2s var(--color-ease);
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.button-color-swoosh_bg-inner {
+  position: absolute;
+  inset: -30%;
+  background-color: black;
+  translate: -10% 100% 0;
+  rotate: 0 0 1 -12deg;
+  transition: translate .6s var(--smooth-ease), rotate .5s var(--smooth-ease);
+  transition-delay: calc((var(--index) * -1) * .042s);
+}
+
+.button-color-swoosh_bg-inner.is-red {
+  background-color: #FF5B37;
+}
+
+.button-color-swoosh_inner {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+}
+
+.button-color-swoosh_inner::after {
+  content: attr(data-text);
+  color: #FAF4EC;
+  display: block;
+  grid-area: 1 / 1;
+  translate: 0 1.5em 0;
+  rotate: 1 1 .5 -30deg;
+  transform-origin: top right;
+  transition: translate .75s var(--elastic-ease-out), rotate .5s var(--smooth-ease), opacity .2s ease-out;
+  opacity: 0;
+}
+
+.button-color-swoosh_text {
+  grid-area: 1 / 1;
+  transition: translate .75s var(--elastic-ease-out), rotate .5s var(--smooth-ease), opacity .2s ease-out, color .2s var(--color-ease);
+  color: #111;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-color-swoosh:is(:hover, :focus-visible) .button-color-swoosh_bg {
+    scale: 1.02 1.02;
+  }
+
+  .button-color-swoosh:is(:hover, :focus-visible) .button-color-swoosh_bg-inner {
+    translate: -10% 0 0;
+    rotate: 0 0 1 0deg;
+  }
+
+  .button-color-swoosh:is(:hover, :focus-visible) .button-color-swoosh_text {
+    rotate: 1 1 0.45 -60deg;
+    translate: 0 -1.5em 0;
+    opacity: 0;
+  }
+
+  .button-color-swoosh:is(:hover, :focus-visible) .button-color-swoosh_inner::after {
+    rotate: 1 1 .45 0deg;
+    translate: 0 0 0;
+    opacity: 1;
+    transition-delay: .05s;
+  }
+}
+
+/* Footer-specific swoosh button sizing */
+.button-color-swoosh.is-footer {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  padding: 0.25rem 0.75rem;
+}
+
+/* ========== Mouse Trail Effect ========== */
+.mwg_effect020 {
+  width: 100%;
+  height: 100vh;
+  margin-top: -100vh;
+  position: relative;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mwg_effect020 img {
+  width: 15vw;
+  position: absolute;
+  object-fit: cover;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.mwg_effect020 .medias img {
+  width: 1px;
+  height: 1px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Stroke text for outlined GETHYPED logo */
+.stroke-text {
+  -webkit-text-stroke: 2px black;
+  color: transparent;
+}
