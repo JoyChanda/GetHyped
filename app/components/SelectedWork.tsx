@@ -136,7 +136,7 @@ function Card({ item }: { item: typeof SELECTED_WORK_DATA[0] }) {
   };
 
   return (
-    <div className="sw-item w-full">
+    <div className="sw-item w-full" suppressHydrationWarning>
       <Link 
         href={`/work/${item.id}`} 
         className="relative block w-full aspect-[14.8/19.18] rounded-[2.5rem] p-2 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:scale-[1.02] hover:-rotate-1 hover:-skew-y-1"
@@ -145,7 +145,7 @@ function Card({ item }: { item: typeof SELECTED_WORK_DATA[0] }) {
         onMouseLeave={handleMouseLeave}
       >
         {/* Media Holder */}
-        <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-black/10">
+        <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-black/10" suppressHydrationWarning>
           <Image 
             src={item.image} 
             alt={item.title} 
@@ -162,12 +162,13 @@ function Card({ item }: { item: typeof SELECTED_WORK_DATA[0] }) {
         </div>
 
         {/* Floating Overlay Wrapper */}
-        <div className="absolute bottom-5 left-5 right-5 z-10 pointer-events-none">
+        <div className="absolute bottom-5 left-5 right-5 z-10 pointer-events-none" suppressHydrationWarning>
           
           {/* Content Container */}
           <div 
             className="p-3.5 md:p-4 rounded-b-[1.2rem]"
             style={{ backgroundColor: item.brandColor }}
+            suppressHydrationWarning
           >
             <h3 className="text-[1.2rem] md:text-[1.3rem] font-bold leading-[1.05] text-white mb-2.5 max-w-[18ch]">
               {item.title}
@@ -175,6 +176,7 @@ function Card({ item }: { item: typeof SELECTED_WORK_DATA[0] }) {
             <div 
               className="w-max px-2 py-0.5 rounded-md font-bold text-[0.75rem] text-white"
               style={{ backgroundColor: item.labelBg }}
+              suppressHydrationWarning
             >
               {item.brand}
             </div>
@@ -199,13 +201,13 @@ function Card({ item }: { item: typeof SELECTED_WORK_DATA[0] }) {
             </svg>
 
             {/* Arrow Icon with Diagonal Double Slide Animation - Positioned at absolute peak and reversed direction */}
-            <div className={`absolute top-[6.0rem] right-[0.7rem] w-[2.8rem] h-[2.8rem] bg-white rounded-full shadow-lg overflow-hidden transition-all duration-500 ease-out z-[10] ${isHovered ? 'scale-105' : 'scale-100'}`}>
+            <div className={`absolute top-[6.0rem] right-[0.7rem] w-[2.8rem] h-[2.8rem] bg-white rounded-full shadow-lg overflow-hidden transition-all duration-500 ease-out z-[10] ${isHovered ? 'scale-105' : 'scale-100'}`} suppressHydrationWarning>
               {/* Arrow 1: Exits top-right on hover */}
-              <div className={`absolute inset-0 flex items-center justify-center text-black transition-transform duration-500 ease-[cubic-bezier(0.7,0,0.3,1)] ${isHovered ? 'translate-x-full -translate-y-full' : 'translate-x-0 translate-y-0'}`}>
+              <div className={`absolute inset-0 flex items-center justify-center text-black transition-transform duration-500 ease-[cubic-bezier(0.7,0,0.3,1)] ${isHovered ? 'translate-x-full -translate-y-full' : 'translate-x-0 translate-y-0'}`} suppressHydrationWarning>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
               </div>
               {/* Arrow 2: Enters from bottom-left on hover */}
-              <div className={`absolute inset-0 flex items-center justify-center text-black transition-transform duration-500 ease-[cubic-bezier(0.7,0,0.3,1)] ${isHovered ? 'translate-x-0 translate-y-0' : '-translate-x-full translate-y-full'}`}>
+              <div className={`absolute inset-0 flex items-center justify-center text-black transition-transform duration-500 ease-[cubic-bezier(0.7,0,0.3,1)] ${isHovered ? 'translate-x-0 translate-y-0' : '-translate-x-full translate-y-full'}`} suppressHydrationWarning>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
               </div>
             </div>

@@ -2,6 +2,7 @@ import HeroSection from './components/HeroSection';
 import IntroSection from './components/IntroSection';
 import ExpertiseSection from './components/ExpertiseSection';
 import SelectedWork from './components/SelectedWork';
+import BrandsSection from './components/BrandsSection';
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <IntroSection />
       <ExpertiseSection />
       <SelectedWork />
+      <BrandsSection />
     </main>
   );
 }
