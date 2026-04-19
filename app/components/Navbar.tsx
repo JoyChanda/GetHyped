@@ -93,24 +93,25 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
         {/* Right: Get Results Jellybelly & Menu Button */}
         <div className="pointer-events-auto flex items-center gap-3">
           {/* Jellybelly Button exactly identically from source */}
-          <button onClick={onOpenModal} className="button-default">
-            <div className="button-default__inner">
-              <span className="button-default__background"></span>
-              <span className="button-default__text">Get Results</span>
-              <div className="button-default__icon">
-                🔥
+          <div className="hidden md:block">
+            <button onClick={onOpenModal} className="button-default">
+              <div className="button-default__inner">
+                <span className="button-default__background"></span>
+                <span className="button-default__text">Get Results</span>
+                <div className="button-default__icon">
+                  🔥
+                </div>
               </div>
-            </div>
-          </button>
+            </button>
+          </div>
 
           {/* Animated Hamburger Icon (Mobile) */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden relative flex flex-col gap-[5px] justify-center items-center w-12 h-12 bg-white rounded-full shadow-sm border border-black/5"
+            className="md:hidden relative flex justify-center items-center w-[56px] h-[56px] bg-[#fcb8fa] rounded-[12px] z-[1000] cursor-pointer shadow-sm"
           >
-            <span className={`w-5 h-0.5 bg-black rounded-full transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
-            <span className={`w-5 h-0.5 bg-black rounded-full transition-all duration-300 ${menuOpen ? 'opacity-0' : 'opacity-100'}`} />
-            <span className={`w-5 h-0.5 bg-black rounded-full transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
+            <span className={`w-[20px] h-[2px] bg-[#161616] absolute transition-transform duration-300 ${menuOpen ? 'rotate-45' : '-translate-y-1'}`} />
+            <span className={`w-[20px] h-[2px] bg-[#161616] absolute transition-transform duration-300 ${menuOpen ? '-rotate-45' : 'translate-y-1'}`} />
           </button>
         </div>
       </motion.nav>
@@ -123,28 +124,28 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed top-[88px] left-4 right-4 bg-white/95 backdrop-blur-xl z-[899] p-4 rounded-3xl shadow-xl border border-black/5 flex flex-col gap-2 md:hidden"
+            className="fixed top-4 left-4 right-4 bg-[#fcb8fa] z-[899] p-4 rounded-[2em] shadow-xl border border-black/5 flex flex-col gap-2 pt-28 pb-8 md:hidden"
           >
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => scrollTo(link.id)}
-                className="text-left px-5 py-3.5 rounded-2xl font-bold text-lg text-gray-900 hover:bg-black/5 transition-colors"
+                className="text-left px-5 py-3.5 rounded-2xl font-bold text-3xl text-gray-900 transition-colors"
               >
                 {link.label}
               </button>
             ))}
-            <div className="pt-2 pb-1 border-t border-black/5 mt-2">
-              {/* Also use jellybelly here for mobile if desired, or keep standard */}
+            <div className="pt-2 pb-1 mt-4">
+              {/* Button matched to menu background style */}
               <button
                 onClick={() => { setMenuOpen(false); onOpenModal?.(); }}
-                className="button-default w-full"
+                className="button-default w-full bg-white rounded-full"
                 style={{ display: 'flex' }}
               >
                 <div className="button-default__inner" style={{ width: '100%' }}>
-                  <span className="button-default__background"></span>
+                  <span className="button-default__background" style={{ backgroundColor: '#fff', border: '1px solid #161616' }}></span>
                   <span className="button-default__text text-lg">Get Results</span>
-                  <div className="button-default__icon">🔥</div>
+                  <div className="button-default__icon" style={{ backgroundColor: '#111', color: '#fff' }}>🔥</div>
                 </div>
               </button>
             </div>

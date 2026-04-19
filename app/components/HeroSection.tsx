@@ -140,40 +140,32 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Mobile - Resized for clarity */}
-      <div className="md:hidden mt-16 flex flex-col gap-8 px-4">
-        {[
-          { color: '#0D8DFF', num: '10M+', title: 'Organische views', desc: 'Groei door slimme content' },
-          { video: '/Loop Salontopper.mp4' },
-          { color: '#33C791', num: '30+', title: 'Merken geholpen', desc: 'Van start-up tot multinational' },
-          { video: '/petrolhead-loop.mp4', overlay: 'DIE KLINKT TOCH' }
-        ].map((item, idx) => (
-          <motion.div
-            key={idx}
-            className={`w-full aspect-[4.8/6.2] rounded-[2.5em] shadow-lg flex flex-col justify-between overflow-hidden relative ${item.color ? '' : 'bg-black'}`}
-            style={item.color ? { backgroundColor: item.color, padding: '1.8em' } : {}}
+      {/* Mobile - 2 overlapping cards side by side */}
+      <div className="md:hidden mt-12 mb-8 w-full flex justify-center items-center px-1 xs:px-2">
+        <div className="relative flex justify-center items-center w-full max-w-[380px]">
+          
+          {/* Card 0: Blue Stats */}
+          <div
+            className="relative z-20 bg-[#0D8DFF] rounded-[1.8em] p-[1.2em] shadow-2xl flex flex-col justify-between origin-bottom overflow-hidden w-[54%] aspect-[4.8/6.2] -mr-[6%]"
+            style={{ transform: "translateY(5px) rotate(-1deg)" }}
           >
-            {item.color ? (
-              <>
-                <h3 className="text-[#101010] text-[3.5rem] font-bold leading-none">{item.num}</h3>
-                <div className="w-full text-left">
-                  <p className="font-bold text-xl text-[#101010] leading-tight">{item.title}</p>
-                  <div className="w-full h-[1px] bg-[#101010]/20 my-3"></div>
-                  <p className="text-[14px] font-medium text-[#101010]/80">{item.desc}</p>
-                </div>
-              </>
-            ) : (
-              <>
-                <video src={item.video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
-                {item.overlay && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <h4 className="text-white text-[1.4rem] font-black uppercase text-center">{item.overlay}</h4>
-                  </div>
-                )}
-              </>
-            )}
-          </motion.div>
-        ))}
+            <div className="text-[#101010] text-[clamp(2.3rem,9vw,3.2rem)] font-bold leading-none tracking-[-0.05em]">10M+</div>
+            <div className="flex flex-col gap-[0.3em] w-full text-left">
+              <h2 className="font-bold text-[clamp(0.9rem,3.5vw,1.1rem)] text-[#101010] tracking-[-0.02em] leading-tight">Organische views</h2>
+              <div className="w-full h-[1px] bg-[#101010]/20 my-[0.2em]"></div>
+              <p className="text-[clamp(0.7rem,2.8vw,0.85rem)] font-medium text-[#101010]/80 leading-snug">Groei door slimme content</p>
+            </div>
+          </div>
+
+          {/* Card 1: Video 01 */}
+          <div
+            className="relative z-10 bg-black rounded-[1.8em] overflow-hidden shadow-xl origin-bottom w-[54%] aspect-[4.8/6.2] -ml-[6%]"
+            style={{ transform: "translateY(-5px) rotate(3deg)" }}
+          >
+            <video src="/Loop Salontopper.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+          </div>
+
+        </div>
       </div>
     </section>
   );

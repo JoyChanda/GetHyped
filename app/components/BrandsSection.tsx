@@ -110,7 +110,7 @@ export default function BrandsSection() {
         >
           {[...BRANDS, ...BRANDS].map((brand, i) => (
             <div key={i} className="brand-card shrink-0" suppressHydrationWarning>
-              <div className="w-[200px] h-[140px] md:w-[22vw] md:h-[15vw] lg:w-[20vw] lg:h-[13vw] bg-transparent border border-black/5 rounded-xl md:rounded-2xl flex items-center justify-center p-0 transition-transform duration-300 pointer-events-none" suppressHydrationWarning>
+              <div className="w-[200px] h-[140px] md:w-[22vw] md:h-[15vw] lg:w-[20vw] lg:h-[13vw] bg-transparent border-[1.5px] border-black/15 rounded-xl md:rounded-2xl flex items-center justify-center p-0 transition-transform duration-300 pointer-events-none" suppressHydrationWarning>
                 <div className="relative w-full h-full flex items-center justify-center overflow-visible" suppressHydrationWarning>
                   <img 
                     src={brand.src} 

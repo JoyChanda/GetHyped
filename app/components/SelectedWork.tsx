@@ -47,6 +47,7 @@ export default function SelectedWork() {
   useGSAP(() => {
     const mm = gsap.matchMedia();
 
+    // Desktop Animation
     mm.add("(min-width: 480px)", () => {
       const items = gsap.utils.toArray<HTMLElement>('.sw-item');
       
@@ -69,6 +70,26 @@ export default function SelectedWork() {
             }
           }
         );
+      });
+    });
+
+    // Mobile Animation
+    mm.add("(max-width: 479px)", () => {
+      const items = gsap.utils.toArray<HTMLElement>('.sw-item');
+      
+      items.forEach((item, index) => {
+        if (index > 0) {
+          gsap.from(item, {
+            y: "4rem",
+            opacity: 0.85,
+            scrollTrigger: {
+              trigger: item,
+              start: "top 95%",
+              end: "top 55%",
+              scrub: 1,
+            }
+          });
+        }
       });
     });
 
@@ -103,10 +124,19 @@ export default function SelectedWork() {
         </div>
 
         {/* Selected Work Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-start">
-          {SELECTED_WORK_DATA.map((item) => (
-            <Card key={item.id} item={item} />
-          ))}
+        <div className="flex flex-col md:grid md:grid-cols-3 max-md:-space-y-[24%] xs:max-md:-space-y-[22%] md:gap-12 items-start px-2 sm:px-0 overflow-visible">
+          {SELECTED_WORK_DATA.map((item, idx) => {
+            const mobileRotationClass = idx % 2 === 0 ? 'max-md:rotate-[2deg]' : 'max-md:-rotate-[2deg]';
+            return (
+              <div 
+                key={item.id} 
+                className={`w-full relative shadow-lg md:shadow-none transition-transform ${mobileRotationClass} md:rotate-0`} 
+                style={{ zIndex: idx }}
+              >
+                <Card item={item} />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

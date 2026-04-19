@@ -33,20 +33,24 @@ export default function FooterSection() {
 
   // Parallax reveal effect
   useGSAP(() => {
-    gsap.fromTo(
-      footerRef.current,
-      { yPercent: -40 },
-      {
-        yPercent: 0,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top bottom',
-          end: 'bottom bottom',
-          scrub: true,
-        },
-      }
-    );
+    let mm = gsap.matchMedia();
+    
+    mm.add("(min-width: 768px)", () => {
+      gsap.fromTo(
+        footerRef.current,
+        { yPercent: -40 },
+        {
+          yPercent: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top bottom',
+            end: 'bottom bottom',
+            scrub: true,
+          },
+        }
+      );
+    });
 
     gsap.to('.footer-sticker-rotate', {
       rotation: 360,
@@ -129,15 +133,25 @@ export default function FooterSection() {
       ref={containerRef} 
       className="section_footer relative w-full bg-[#fcfbf7] overflow-hidden"
     >
+      <style dangerouslySetInnerHTML={{__html: `
+        .footer-clip-responsive {
+          clip-path: polygon(0 50px, 100% 0, 100% 100%, 0 100%);
+        }
+        @media (min-width: 768px) {
+          .footer-clip-responsive {
+             clip-path: polygon(0 calc(65% + 20px), 5px calc(65% + 8px), 12px calc(65% + 2px), 20px 65%, 100% 0%, 100% 100%, 0% 100%);
+          }
+        }
+      `}} />
       <div 
         ref={footerRef} 
-        className="cs-footer relative w-full bg-[#fcfbf7] flex flex-col border-t border-black/5"
+        className="cs-footer relative w-full bg-[#fcfbf7] flex flex-col border-t border-black/5 pt-8 md:pt-0"
       >
         
         {/* Top CTA: Let's get hyped! */}
         <div 
           ref={trailZoneRef}
-          className="cs-footer-cta relative flex flex-col items-center text-center px-6 pt-56 pb-24 md:pb-40 z-10 cursor-default"
+          className="cs-footer-cta hidden md:flex relative flex-col items-center text-center px-6 pt-56 pb-24 md:pb-40 z-10 cursor-default"
           onMouseMove={handleMouseMove}
         >
           <h2 className="text-[clamp(2.8rem,6.8vw,6.0rem)] leading-[0.82] font-semibold tracking-[-0.05em] text-black mb-16 select-none relative z-10">
@@ -172,35 +186,61 @@ export default function FooterSection() {
         {/* Diagonal Slant Section: Beige Background - Minimal High-Right Slope */}
         <div className="relative w-full mt-auto z-30 px-5">
           {/* Circular Badge: Anchored to the High-Right shoulder */}
-          <div className="absolute top-0 right-[7.5%] w-[88px] md:w-[160px] z-50 transform -translate-y-[90%]">
+          <div className="hidden md:block absolute top-0 right-[7.5%] w-[88px] md:w-[160px] z-50 transform -translate-y-[90%]">
             <div className="footer-sticker-rotate">
               <StickerSVG className="w-full h-full" />
             </div>
           </div>
 
           <div 
-            className="cs-footer-bottom relative w-full pt-20 pb-4 px-6 md:px-20 bg-[#f3f0e8] mt-[-80px] rounded-tr-[40px] md:rounded-tr-[80px]"
-            style={{ 
-              clipPath: 'polygon(0 calc(65% + 20px), 5px calc(65% + 8px), 12px calc(65% + 2px), 20px 65%, 100% 0%, 100% 100%, 0% 100%)' 
-            }}
+            className="cs-footer-bottom footer-clip-responsive relative w-full pt-16 md:pt-20 pb-4 px-6 md:px-20 bg-[#f3f0e8] mt-0 md:mt-[-80px] rounded-tr-[40px] md:rounded-tr-[80px]"
           >
 
-          <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-end gap-16 relative z-10">
+          <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center md:items-end gap-6 md:gap-16 relative z-10 pb-6 md:pb-0">
             
-            {/* Left Side: Branding Logo */}
-            <div className="w-full md:w-1/3 flex justify-start items-end pb-[10px]">
-              <FooterLogoSVG className="w-[195px] md:w-[316px] h-auto transform -translate-x-[20%] opacity-100" />
+            {/* Left Side: Branding Logo Mobile Full Width */}
+            <div className="w-[90%] md:w-1/3 flex justify-center md:justify-start items-center md:items-end pb-0 md:pb-[10px]">
+              <FooterLogoSVG className="w-[100%] max-w-[360px] md:max-w-none md:w-[316px] h-auto transform max-md:scale-[1.20] max-md:-translate-y-[30%] md:-translate-x-[20%] opacity-100" />
             </div>
 
             {/* Right Side: Information Content */}
-            <div className="w-full md:w-2/3 flex flex-col gap-4 text-right">
+            <div className="w-full md:w-2/3 flex flex-col gap-6 md:gap-4 text-center md:text-right items-center md:items-end">
               
-              <div className="flex flex-col md:flex-row justify-end items-start gap-8 md:gap-16 w-full pt-8">
+              {/* MOBILE ONLY: Orange CTA Button + Pills stacked */}
+              <div className="flex md:hidden flex-col items-center w-full gap-5 mt-2">
+                {/* Orange CTA Button */}
+                <a href="mailto:info@gethyped.nl" className="flex items-center justify-between bg-[#FF5B37] text-white pl-5 pr-2 py-2 rounded-[1.4rem] shadow-sm w-[82vw] max-w-[320px] transition-transform hover:scale-105 active:scale-95">
+                  <span className="font-bold text-[15px] tracking-tight text-white whitespace-nowrap">Get Hyped! Neem contact op</span>
+                  <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center ml-3 flex-shrink-0 text-[17px]">
+                    🔥
+                  </div>
+                </a>
+
+                {/* Sitemap Pills */}
+                <div className="flex flex-nowrap justify-center gap-[5px] w-[82vw] max-w-[320px]">
+                  {['Expertises', 'Work', 'About', 'Contact'].map((label) => (
+                    <a
+                      key={label}
+                      href={`/${label.toLowerCase()}`}
+                      className="button-color-swoosh bg-white shadow-sm border border-black/10 !rounded-[10px] !px-2 !py-[0.35rem] flex-1 text-center"
+                    >
+                      <span className="button-color-swoosh_bg !rounded-[10px]">
+                        <span style={{ '--index': 0 } as any} className="button-color-swoosh_bg-inner"></span>
+                      </span>
+                      <span data-text={label} className="button-color-swoosh_inner">
+                        <span className="button-color-swoosh_text hover:!text-white !text-[12.5px] font-semibold text-[#161616]">{label}</span>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col md:flex-row justify-center md:justify-end items-center md:items-start gap-8 md:gap-16 w-full pt-2 md:pt-8">
                 
-                {/* Information Sub-Column: Links & Socials (LEFT of the grid) */}
-                <div className="flex flex-col gap-6 items-start text-left transform translate-y-[35%]">
-                  {/* Sitemap: Swoosh Effect Pills */}
-                  <div className="flex flex-wrap gap-[6px]">
+                {/* Information Sub-Column: Links & Socials — DESKTOP ONLY */}
+                <div className="flex flex-col gap-8 md:gap-6 items-center md:items-start text-center md:text-left transform md:translate-y-[35%] w-full md:w-auto">
+                  {/* Sitemap Pills — DESKTOP ONLY */}
+                  <div className="hidden md:flex flex-wrap justify-start gap-[6px]">
                     {['Expertises', 'Work', 'About', 'Contact'].map((label) => (
                       <a
                         key={label}
@@ -217,36 +257,37 @@ export default function FooterSection() {
                     ))}
                   </div>
 
+
                   {/* Social Media Row */}
-                  <div className="flex items-center gap-6">
-                    <div className="text-[16px] font-bold text-black select-none">Follow us</div>
-                    <div className="flex gap-4">
+                  <div className="flex flex-col md:flex-row items-center gap-6">
+                    <div className="hidden md:block text-[16px] font-bold text-black select-none">Follow us</div>
+                    <div className="flex justify-center gap-4">
                       {['linkedin', 'tiktok', 'instagram', 'youtube'].map((name) => (
                         <a
                           key={name}
                           href="#"
-                          className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-transform hover:scale-110 shadow-sm"
+                          className="w-[46px] h-[46px] md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center transition-transform hover:scale-110 shadow-sm border border-black/5"
                         >
-                          <SocialIconSVG name={name} className="w-5 h-5 text-black" />
+                          <SocialIconSVG name={name} className="w-[18px] h-[18px] md:w-5 md:h-5 text-[#161616]" />
                         </a>
                       ))}
                     </div>
                   </div>
                 </div>
 
-                {/* Information Sub-Column: Contact & Address (HARD RIGHT SIDE - Vertical Stack) */}
-                <div className="flex flex-col gap-2 items-end text-left w-full md:w-auto">
-                  <div className="flex flex-col gap-2">
-                    <div className="text-[20px] font-bold text-black mb-1">Contact</div>
-                    <div className="flex flex-col gap-1 text-[17px] font-normal leading-tight text-black opacity-80">
+                {/* Information Sub-Column: Contact & Address (HARD RIGHT SIDE) */}
+                <div className="flex flex-col gap-6 md:gap-2 items-center md:items-end text-center md:text-left w-full md:w-auto mt-2 md:mt-0">
+                  <div className="flex flex-col gap-1 md:gap-2">
+                    <div className="hidden md:block text-[20px] font-bold text-black mb-1">Contact</div>
+                    <div className="flex flex-col gap-1.5 md:gap-1 text-[15.5px] md:text-[17px] font-semibold md:font-normal leading-[1.3] md:leading-tight text-[#161616] opacity-90 md:opacity-80">
                       <a href="mailto:info@gethyped.nl">info@gethyped.nl</a>
                       <a href="tel:+31615337496">+31 6 1533 7496</a>
                     </div>
                   </div>
                   
                   <div className="flex flex-col gap-2">
-                    <div className="text-[20px] font-bold text-black mb-1">Adres</div>
-                    <div className="text-[17px] font-normal leading-tight text-black opacity-80">
+                    <div className="hidden md:block text-[20px] font-bold text-black mb-1">Adres</div>
+                    <div className="text-[15.5px] md:text-[17px] font-semibold md:font-normal leading-[1.4] md:leading-tight text-[#161616] opacity-90 md:opacity-80">
                       Beltrumsestraat 6,<br />
                       7141 AL Groenlo
                     </div>
@@ -254,15 +295,18 @@ export default function FooterSection() {
                 </div>
               </div>
 
-              {/* Bottom Credits Bar (Minimized space) */}
-              <div className="flex flex-col md:flex-row justify-between items-center w-full pt-4 border-t border-black/5 gap-4">
-                 <div className="text-[13px] font-medium text-black opacity-40">
+              {/* Bottom Credits Bar */}
+              <div className="flex flex-col md:flex-row justify-center md:justify-between items-center w-full pt-6 md:pt-4 md:border-t md:border-black/5 gap-3 md:gap-4 mt-6 md:mt-0">
+                 <a href="#" className="block md:hidden text-[13px] font-medium text-[#161616] opacity-60 hover:opacity-100 transition-opacity mb-1">
+                   Privacyvoorwaarden
+                 </a>
+                 <div className="text-[13px] font-medium text-[#161616] opacity-60 md:opacity-40">
                    © {currentYear} Get Hyped
                  </div>
-                 <div className="text-[13px] font-medium text-black opacity-40">
+                 <div className="text-[13px] font-medium text-[#161616] opacity-60 md:opacity-40 md:mb-0 mb-6">
                    © Design by Dylan
                  </div>
-                 <a href="#" className="text-[13px] font-medium text-black opacity-40 hover:opacity-100 transition-opacity">
+                 <a href="#" className="hidden md:block text-[13px] font-medium text-[#161616] opacity-40 hover:opacity-100 transition-opacity">
                    Privacyvoorwaarden
                  </a>
               </div>

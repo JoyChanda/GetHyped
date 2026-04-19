@@ -72,14 +72,24 @@ export default function IntroSection() {
 
         {/* Left Image/Video */}
         <motion.div variants={itemVariants} className="md:col-span-6 lg:col-span-3">
-          <div className="relative w-full md:max-w-[300px] aspect-[4/5] rounded-[1.5rem] overflow-hidden shadow-md group cursor-pointer">
+          <div className="relative w-full md:max-w-[300px] aspect-[4/5] rounded-[1.5rem] overflow-hidden shadow-md group cursor-pointer bg-black">
+            {/* Desktop Image */}
             <Image
               src="https://cdn.prod.website-files.com/6848603da8e6ac95794b7498/6894757aa6dd3f84f6e463a2_Anniek%20Bril.webp"
               alt="Intro representation"
               fill
-              className="object-cover"
+              className="object-cover hidden md:block"
             />
-            <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            {/* Mobile Video */}
+            <video 
+              src="/new-reach-loop.mp4" 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              className="absolute inset-0 w-full h-full object-cover block md:hidden" 
+            />
+            <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
           </div>
         </motion.div>
 
